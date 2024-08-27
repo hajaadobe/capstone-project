@@ -19,11 +19,36 @@
   display: block;
 }
 
+.columns.featured {
+  background-color: var(--light-grey-color);
+  margin-top: 40px;
+}
+
+.columns.featured h2 {
+  margin: 18px 0;
+}
+
+.columns.featured h2::after {
+  display: none;
+}
+
+.columns.featured > div {
+  gap: 0;
+}
+
+.columns.featured > div > div {
+  padding: 0 32px;
+}
+
+.columns.featured > div > .columns-img-col {
+  padding: 0;
+}
+
 @media (width >= 900px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: 32px;
   }
 
   .columns > div > div {

@@ -1,0 +1,61 @@
+main .form {
+  background-color: var(--dark-color);
+  color: var(--background-color);
+  max-width: 400px;
+  margin: 4em auto 0;
+  padding: .5rem 1.75rem 1rem;
+  box-shadow: 0 5px 10px var(--text-light-color);
+}
+
+main .form input,
+main .form textarea,
+main .form select {
+  background-color: transparent;
+  border: solid 1px var(--light-grey-color);
+  padding: 1rem;
+  width: 100%;
+  max-width: 50rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: var(--light-color);
+  font-size: var(--body-font-size-xs);
+}
+
+main .form textarea {
+  max-height: 80px;
+  resize: none;
+  overflow: hidden;
+}
+
+main .form label {
+  width: 72%;
+  display: block;
+  color: var(--light-grey-color);
+  padding-bottom: var(--spacing-xxs);
+  box-sizing: border-box;
+  font-size: var(--body-font-size-xxs);
+  text-transform: uppercase;
+}
+
+main .form .field-wrapper {
+  margin-bottom: 10px;
+}
+
+main .form .form-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-xs) 0;
+}
+
+main .form .form-checkbox-wrapper label {
+  display: block;
+  font-size: var(--body-font-size-xs);
+  padding-bottom: 0;
+}
+
+main .form button {
+  width: 180px;
+  padding: .65rem 1rem;
+  font-family: var(--body-font-family-bold);
+  font-size: var(--body-font-size-m);
+}
