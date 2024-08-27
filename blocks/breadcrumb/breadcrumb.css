@@ -1,0 +1,30 @@
+.breadcrumb ul {
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li {
+  display: inline-block;
+  padding: 10px 5px;
+  text-transform: uppercase;
+}
+
+.breadcrumb li a {
+  font-family: var(--body-font-family-bold);
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.breadcrumb li:first-child {
+  padding-left: 0;
+}
+
+.breadcrumb li::before {
+  content: "▶";
+  color: var(--color-yellow);
+  padding-right: 10px;
+}
+
+.breadcrumb li:first-child::before {
+  content: none;
+}

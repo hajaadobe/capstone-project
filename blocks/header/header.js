@@ -108,6 +108,12 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // Create navWrapper and navContainer
+  const navWrapper = document.createElement('div');
+  const navContainer = document.createElement('div');
+  navWrapper.className = 'nav-wrapper';
+  navContainer.className = 'nav-container';
+
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -119,7 +125,7 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
+  const classes = ['header-top', 'brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
@@ -133,6 +139,23 @@ export default async function decorate(block) {
   }
 
   const navSections = nav.querySelector('.nav-sections');
+  const navLinks = navSections.querySelectorAll('a');
+
+  // add 'active' class to the current page link
+  const currentUrl = window.location.pathname;
+  navLinks.forEach((link) => {
+    if (link.getAttribute('href') === currentUrl) {
+      link.classList.add('active');
+    }
+
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      navLinks.forEach((e) => e.classList.remove('active'));
+      link.classList.add('active');
+      window.location.href = link.getAttribute('href');
+    });
+  });
+
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
@@ -159,8 +182,12 @@ export default async function decorate(block) {
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
-  const navWrapper = document.createElement('div');
-  navWrapper.className = 'nav-wrapper';
-  navWrapper.append(nav);
+  const headerTop = nav.querySelector('.header-top');
+  navContainer.append(nav);
+  navWrapper.append(navContainer);
+
   block.append(navWrapper);
+  if (headerTop) {
+    block.prepend(headerTop);
+  }
 }

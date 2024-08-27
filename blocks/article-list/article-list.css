@@ -1,0 +1,27 @@
+.article-list {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+}
+
+.article-list >div:first-of-type {
+  display: none;
+}
+
+.article-list .article-body a {
+  text-decoration: none;
+}
+
+.article-list .article-body h6 {
+  font-family: var(--body-font-family-bold);
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.article-list .article-body p {
+  color: var(--text-light-color);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
