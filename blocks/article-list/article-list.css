@@ -12,6 +12,12 @@
   text-decoration: none;
 }
 
+.article-list .article-body img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
 .article-list .article-body h6 {
   font-family: var(--body-font-family-bold);
   text-transform: uppercase;
