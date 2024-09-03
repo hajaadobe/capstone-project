@@ -1,20 +1,23 @@
+import { createOptimizedPicture } from '../../scripts/aem.js';
+
 export default async function decorate(block) {
   const jsonLink = block.querySelector('a[href$=".json"]');
   const response = await fetch(jsonLink.href);
   const data = await response.json();
   const fragment = document.createDocumentFragment();
+  const filteredData = data.data.filter((row) => row.template === 'Magazine');
 
-  data.data.forEach(({
-    image,
-    title,
-    description,
-    link,
-  }) => {
+  filteredData.forEach((row) => {
+    const {
+      image,
+      title,
+      description,
+      path,
+    } = row;
     const articleBody = document.createElement('div');
     articleBody.classList.add('article-body');
 
-    const img = document.createElement('img');
-    img.src = image;
+    const optimizedPicture = createOptimizedPicture(image, title, false, [{ width: '750' }]);
 
     const titleElement = document.createElement('h6');
     titleElement.textContent = title;
@@ -23,9 +26,9 @@ export default async function decorate(block) {
     paragraph.textContent = description;
 
     const linkElement = document.createElement('a');
-    linkElement.href = link;
+    linkElement.href = path;
 
-    linkElement.append(img, titleElement);
+    linkElement.append(optimizedPicture, titleElement);
     articleBody.append(linkElement, paragraph);
 
     fragment.appendChild(articleBody);

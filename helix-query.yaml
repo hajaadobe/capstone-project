@@ -4,7 +4,7 @@ indices:
   capstone:
     include:
       - "**"
-    target: /query-index
+    target: /query-index.json
     properties:
       title:
         select: head > meta[property="og:title"]
@@ -18,15 +18,11 @@ indices:
         select: head > meta[property="og:image"]
         value: |
           match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
-      theme:
-        select: head > meta[name="theme"]
+      url:
+        select: head > meta[property="og:url"]
         value: |
-          attribute(el, 'content')
+          match(attribute(el, 'content'), 'https://[^/]+(./*)')
       template:
         select: head > meta[name="template"]
-        value: |
-          attribute(el, 'content')
-      tags:
-        select: head > meta[property="article:tag"]
         value: |
           attribute(el, 'content')
