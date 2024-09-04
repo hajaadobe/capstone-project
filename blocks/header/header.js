@@ -138,6 +138,23 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  const search = nav.querySelector('.nav-tools p');
+  if (search) {
+    const searchInput = document.createElement('input');
+    searchInput.type = 'search';
+    searchInput.className = 'search-field';
+    searchInput.placeholder = 'SEARCH';
+
+    searchInput.addEventListener('keyup', () => {
+      const query = searchInput.value;
+      if (query) {
+        window.location.href = `/search?q=${query}`;
+      }
+    });
+
+    search.appendChild(searchInput);
+  }
+
   const navSections = nav.querySelector('.nav-sections');
   const navLinks = navSections.querySelectorAll('a');
 
