@@ -5,15 +5,15 @@ export default async function decorate(block) {
   const response = await fetch(jsonLink.href);
   const data = await response.json();
   const fragment = document.createDocumentFragment();
-  const filteredData = data.data.filter((row) => row.template === 'Magazine');
+  const filteredData = data.data.filter((col) => col.template === 'Magazine');
 
-  filteredData.forEach((row) => {
+  filteredData.forEach((col) => {
     const {
       image,
       title,
       description,
       path,
-    } = row;
+    } = col;
     const articleBody = document.createElement('div');
     articleBody.classList.add('article-body');
 

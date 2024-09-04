@@ -37,21 +37,6 @@ header nav[aria-expanded='true'] {
   min-height: 100dvh;
 }
 
-header nav p {
-  margin: 0;
-  line-height: 1;
-}
-
-header .header-top {
-  background-color: var(--dark-color);
-  padding: 0 20px;
-}
-
-header .header-top p {
-  margin: 0;
-  line-height: 0;
-}
-
 header .header-top a:any-link {
   margin: 4px 0;
   border: none;
@@ -60,12 +45,38 @@ header .header-top a:any-link {
   text-decoration: none;
 }
 
+header nav[aria-expanded='true'] a:any-link {
+  display: flex;
+  padding: 8px 20px;
+}
+
+header nav p {
+  margin: 0;
+  line-height: 1;
+}
+
+header .header-top {
+  background-color: var(--dark-color);
+}
+
+header .header-top > div {
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+header .header-top p {
+  margin: 0;
+  line-height: 0;
+}
+
 @media (width >= 900px) {
-  header .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 5em;
+  header .header-top > div {
+    max-width: 1264px;
+    padding: 0 32px;
   }
 
   header nav {
@@ -302,4 +313,26 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+  position: relative;
+}
+
+header nav .nav-tools .icon-search {
+  position: absolute;
+  width: 20px;
+  top: 8px;
+  left: 6px;
+  transform: scaleX(-1);
+}
+
+header nav .nav-tools .search-field {
+  background-color: var(--light-grey-color);
+  width: 160px;
+  height: 40px;
+  padding: 0 30px;
+  border: 1px solid var(--light-grey-color);
+  outline: none;
+}
+
+header nav .nav-tools .search-field:focus {
+  border-color: var(--dark-color);
 }
