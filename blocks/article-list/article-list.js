@@ -4,8 +4,9 @@ export default async function decorate(block) {
   const jsonLink = block.querySelector('a[href$=".json"]');
   const response = await fetch(jsonLink.href);
   const data = await response.json();
-  const fragment = document.createDocumentFragment();
+
   const filteredData = data.data.filter((col) => col.template === 'Magazine');
+  let articleBodyHTML = '';
 
   filteredData.forEach((col) => {
     const {
@@ -14,25 +15,18 @@ export default async function decorate(block) {
       description,
       path,
     } = col;
-    const articleBody = document.createElement('div');
-    articleBody.classList.add('article-body');
-
     const optimizedPicture = createOptimizedPicture(image, title, false, [{ width: '750' }]);
 
-    const titleElement = document.createElement('h6');
-    titleElement.textContent = title;
-
-    const paragraph = document.createElement('p');
-    paragraph.textContent = description;
-
-    const linkElement = document.createElement('a');
-    linkElement.href = path;
-
-    linkElement.append(optimizedPicture, titleElement);
-    articleBody.append(linkElement, paragraph);
-
-    fragment.appendChild(articleBody);
+    articleBodyHTML += `
+      <div class="article-body">
+        <a href="${path}">
+          ${optimizedPicture.outerHTML}
+          <h6>${title}</h6>
+        </a>
+        <p>${description}</p>
+      </div>
+    `;
   });
 
-  block.appendChild(fragment);
+  block.innerHTML = articleBodyHTML;
 }
