@@ -72,7 +72,7 @@
 
 .carousel .carousel-slide .carousel-slide-content {
   background-color: var(--background-color);
-  width: calc((100% - 184px));
+  width: calc((100% - 100px));
   margin: 0;
   padding: 0 28px;
   position: absolute;
@@ -166,6 +166,10 @@
 }
 
 @media (width >= 600px) {
+  .carousel .carousel-slide .carousel-slide-content {
+    width: calc((100% - 184px));
+  }
+
   .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
     width: auto;
   }

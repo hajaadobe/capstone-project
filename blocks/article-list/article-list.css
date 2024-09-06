@@ -4,10 +4,6 @@
   grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
 }
 
-.article-list >div:first-of-type {
-  display: none;
-}
-
 .article-list .article-body a {
   text-decoration: none;
 }
