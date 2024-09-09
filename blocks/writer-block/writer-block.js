@@ -1,18 +1,43 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-  /* change to ul, li */
-  const ul = document.createElement('ul');
+  const cardContent = document.createDocumentFragment();
+
   [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'writer-card-image';
-      else div.className = 'writer-card-body';
+    const card = document.createElement('div');
+    card.className = 'writer-card';
+
+    while (row.firstChild) card.append(row.firstChild);
+
+    [...card.children].forEach((child) => {
+      if (child.querySelector('picture')) {
+        child.className = 'writer-card-image';
+      } else {
+        child.className = 'writer-card-body';
+
+        const socialBlock = child.querySelector('p');
+        if (socialBlock) {
+          socialBlock.classList.add('social-links');
+
+          socialBlock.querySelectorAll('a').forEach((link) => {
+            const socialIcons = document.createElement('img');
+            const linkTitle = link.getAttribute('title');
+            socialIcons.src = `/icons/${linkTitle.toLowerCase().replace(/\s+/g, '-')}.svg`;
+            socialIcons.alt = linkTitle;
+            link.appendChild(socialIcons);
+          });
+        }
+      }
     });
-    ul.append(li);
+
+    card.querySelectorAll('picture > img').forEach((img) => {
+      const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+      img.closest('picture').replaceWith(optimizedPicture);
+    });
+
+    cardContent.append(card);
   });
-  ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+
   block.textContent = '';
-  block.append(ul);
+  block.append(cardContent);
 }
